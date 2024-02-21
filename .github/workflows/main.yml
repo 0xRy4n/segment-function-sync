@@ -1,0 +1,38 @@
+name: Segment Function Sync
+
+on:
+  push:
+    paths:
+      - 'source/**'
+      - 'destination/**'
+      - 'insert/**'
+    branches:
+      - 'main'
+      - 'master'
+
+jobs:
+  sync-functions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install axios
+
+    - name: Detect changed function files
+      id: files
+      uses: jitterbit/get-changed-files@v1
+      with:
+        format: 'space-delimited'
+
+    - name: Update or Create Segment Functions
+      run: node ./.github/workflows/updateOrCreateFunctions.js ${{ steps.files.outputs.all }}
+      env:
+        SEGMENT_TOKEN: ${{ secrets.SEGMENT_TOKEN }}
+        REPO_FULL_NAME: ${{ github.repository }}
