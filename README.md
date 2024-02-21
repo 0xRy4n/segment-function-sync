@@ -8,7 +8,7 @@ Unlike similar repositories, the automation within this repository automatically
 
 ### Usage
 
-1. Clone the repository as is, or copy it's entire contents barring this README and the LICENSE file into your repository.
+1. Clone the repository as is, create a new repository from this template, or copy it's entire contents barring this README and the LICENSE file into your repository.
 2. You must setup your repository with a `SEGMENT_TOKEN` secret containing an API key for the Segment Public API.
 
 The repository has three directories representing the different types of Segment Functions:
